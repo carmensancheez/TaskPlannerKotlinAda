@@ -17,6 +17,8 @@ interface UserService {
     //Read specific reserve
     fun findUserById(userId: String):User?
 
+    fun findByEmail(email: String):User?
+
     //Read all reserves
     fun all():List<User>
 

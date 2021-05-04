@@ -2,6 +2,8 @@ package org.adaschool.TaskPlanner.services
 
 import org.adaschool.TaskPlanner.controller.dto.UserDto
 import org.adaschool.TaskPlanner.model.User
+import org.adaschool.TaskPlanner.utils.RoleEnum
+import org.springframework.security.crypto.bcrypt.BCrypt
 import org.springframework.stereotype.Service
 import java.util.concurrent.atomic.AtomicLong
 
@@ -11,6 +13,7 @@ class UserServiceHashMap:UserService {
     private val users = HashMap<String,User>()
 
     private val nextOid = AtomicLong()
+
 
     override fun save(userDto: UserDto): User {
         val user = User(nextOid.incrementAndGet(),userDto)
@@ -34,6 +37,10 @@ class UserServiceHashMap:UserService {
         else
             null
 
+    }
+
+    override fun findByEmail(email: String): User? {
+        return users.values.find { email == it.email }
     }
 
     override fun all(): List<User> {
