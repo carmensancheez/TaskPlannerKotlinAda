@@ -6,5 +6,4 @@ data class UserDto(
     val password:String,
     val email:String,
     val profilePictureUrl:String
-
 )

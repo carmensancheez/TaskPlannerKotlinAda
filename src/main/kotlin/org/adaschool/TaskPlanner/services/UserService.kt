@@ -1,25 +1,19 @@
 package org.adaschool.TaskPlanner.services
 
 import org.adaschool.TaskPlanner.controller.dto.UserDto
-import org.adaschool.TaskPlanner.model.User
+import org.adaschool.TaskPlanner.data.document.User
 
 interface UserService {
 
-
-    //CRUD Operations
-
-    //Create
     fun save(userDto: UserDto):User
 
-    //Update
     fun update(userId: String,userDto: UserDto):User
 
-    //Read specific reserve
     fun findUserById(userId: String):User?
 
-    //Read all reserves
+    fun findByEmail(email: String):User?
+
     fun all():List<User>
 
-    //Delete
-    fun delete(userId:String):Boolean
+    fun delete(userId: String)
 }

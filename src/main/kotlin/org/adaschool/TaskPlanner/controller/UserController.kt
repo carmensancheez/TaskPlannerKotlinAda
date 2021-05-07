@@ -1,52 +1,40 @@
 package org.adaschool.TaskPlanner.controller
 
 import org.adaschool.TaskPlanner.controller.dto.UserDto
-import org.adaschool.TaskPlanner.model.User
+import org.adaschool.TaskPlanner.data.document.User
+import org.adaschool.TaskPlanner.exceptions.UserNotFoundException
+//import org.adaschool.TaskPlanner.exception.UserNotFoundException
 import org.adaschool.TaskPlanner.services.UserService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.web.bind.annotation.*
-import java.lang.Exception
 
 @RestController
-@RequestMapping("/v1/users")
-class UserController(@Autowired val userService: UserService) {
+@RequestMapping("v1/users")
+class UserController(@Autowired val usersService: UserService) {
 
-    //CRUD Operations
-
-    //Create
     @PostMapping
     fun create(@RequestBody userDto: UserDto): User {
-        return userService.save(userDto)
-
+        return usersService.save(userDto)
     }
 
-    //Read
     @GetMapping
-    fun getUsers():List<User>?{
-        return userService.all()
-
+    fun getUsers(): List<User>? {
+        return usersService.all()
     }
 
-    //Read for specific user
     @GetMapping("/{id}")
-    fun findUserById(@PathVariable id:String): User?{
-        return userService.findUserById(id) ?:throw Exception()
-
+    fun findUserById(@PathVariable id: String): User? {
+        return usersService.findUserById(id) ?: throw UserNotFoundException()
     }
 
-    //Update
     @PutMapping("/{id}")
-    fun update(@PathVariable id: String, @RequestBody userDto: UserDto): User?{
-        return userService.update(id,userDto)
-
+    fun update(@PathVariable id: String, @RequestBody userDto: UserDto): User? {
+        return usersService.update(id, userDto)
     }
-    //Delete
+
     @DeleteMapping("/{id}")
-    fun delete(@PathVariable id:String):Boolean{
-        return userService.delete(id)
-
-
+    fun delete(@PathVariable id: String) {
+        usersService.delete(id)
     }
-
 
 }
